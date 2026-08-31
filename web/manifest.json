@@ -3,9 +3,9 @@
     "short_name": "Michael David",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#2B1154",
-    "theme_color": "#2B1154",
-    "description": "Michael David — technology, administration, and real estate.",
+    "background_color": "#786050",
+    "theme_color": "#2C241F",
+    "description": "Michael David — Mobile Engineer specializing in Flutter and React Native. Production apps in fintech and logistics.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

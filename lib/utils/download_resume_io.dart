@@ -8,3 +8,8 @@ void downloadBytes(Uint8List bytes, String fileName) {
   // ignore: discarded_futures
   openExternal(SiteConfig.linkedin);
 }
+
+void downloadFromUrl(String url, String fileName) {
+  // ignore: discarded_futures
+  openExternal(url);
+}

@@ -33,4 +33,12 @@ cd ~/Desktop/projects/michael_david
 flutter run -d chrome
 ```
 
-Edit contact details and content in `lib/config/site_config.dart`.
+## Production build
+
+```bash
+flutter build web --release --tree-shake-icons
+```
+
+Heavy media (challenge GIFs, resume PDF) is served from `web/assets/` and is not bundled into the initial Flutter asset payload. Fonts are bundled locally (no runtime Google Fonts fetch).
+
+Deploy the contents of `build/web/` (Vercel uses `vercel.json` cache headers).

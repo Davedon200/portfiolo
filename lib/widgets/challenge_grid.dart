@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:michael_david/config/site_config.dart';
 import 'package:michael_david/theme/app_colors.dart';
 import 'package:michael_david/theme/app_typography.dart';
+import 'package:michael_david/utils/asset_paths.dart';
 import 'package:michael_david/utils/open_external.dart';
 
 class ChallengeGrid extends StatelessWidget {
@@ -85,19 +87,7 @@ class _ChallengeCardState extends State<_ChallengeCard> {
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
                   child: AspectRatio(
                     aspectRatio: 9 / 16,
-                    child: Image.asset(
-                      challenge.imageAsset,
-                      fit: BoxFit.cover,
-                      gaplessPlayback: true,
-                      filterQuality: FilterQuality.medium,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          color: AppColors.cvIconBg,
-                          alignment: Alignment.center,
-                          child: const Icon(Icons.animation, color: AppColors.primary),
-                        );
-                      },
-                    ),
+                    child: _ChallengeImage(assetPath: challenge.imageAsset),
                   ),
                 ),
                 Padding(
@@ -151,6 +141,51 @@ class _ChallengeCardState extends State<_ChallengeCard> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ChallengeImage extends StatelessWidget {
+  const _ChallengeImage({required this.assetPath});
+
+  final String assetPath;
+
+  @override
+  Widget build(BuildContext context) {
+    final placeholder = Container(
+      color: AppColors.cvIconBg,
+      alignment: Alignment.center,
+      child: const Icon(Icons.animation, color: AppColors.primary),
+    );
+
+    if (kIsWeb) {
+      return Image.network(
+        resolveAssetPath(assetPath),
+        fit: BoxFit.cover,
+        gaplessPlayback: true,
+        filterQuality: FilterQuality.medium,
+        loadingBuilder: (context, child, progress) {
+          if (progress == null) return child;
+          return Container(
+            color: AppColors.cvIconBg,
+            alignment: Alignment.center,
+            child: const SizedBox(
+              width: 24,
+              height: 24,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            ),
+          );
+        },
+        errorBuilder: (context, error, stackTrace) => placeholder,
+      );
+    }
+
+    return Image.asset(
+      assetPath,
+      fit: BoxFit.cover,
+      gaplessPlayback: true,
+      filterQuality: FilterQuality.medium,
+      errorBuilder: (context, error, stackTrace) => placeholder,
     );
   }
 }

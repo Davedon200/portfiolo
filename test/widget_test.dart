@@ -5,11 +5,13 @@ import 'package:michael_david/router/app_router.dart';
 
 void main() {
   testWidgets('Home shows hero content', (tester) async {
-    await tester.binding.setSurfaceSize(const Size(1200, 800));
-    addTearDown(() => tester.binding.setSurfaceSize(null));
+    tester.view.physicalSize = const Size(1200, 800);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
 
     await tester.pumpWidget(const MichaelDavidApp());
-    await tester.pump();
+    await tester.pumpAndSettle();
     expect(find.text('Software Engineer &'), findsOneWidget);
     expect(find.text('Senior Full stack'), findsOneWidget);
     expect(find.text('Mobile Developer'), findsOneWidget);

@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:michael_david/config/site_config.dart';
 import 'package:michael_david/theme/app_colors.dart';
 import 'package:michael_david/widgets/brand_logo.dart';
-import 'package:michael_david/widgets/nav_menu.dart';
 
 class SiteHeader extends StatelessWidget {
   const SiteHeader({super.key, required this.wide});
@@ -59,7 +58,13 @@ class SiteHeader extends StatelessWidget {
                 ),
               ]
             else
-              const NavMenuButton(),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _HeaderLink(label: 'Home', path: '/', current: path),
+                  _HeaderLink(label: 'Projects', path: '/projects', current: path),
+                ],
+              ),
           ],
         ),
       ),

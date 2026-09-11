@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:michael_david/config/site_config.dart';
+import 'package:michael_david/pages/deferred_portfolio_page.dart';
 import 'package:michael_david/pages/home_page.dart';
-import 'package:michael_david/pages/portfolio_page.dart';
 import 'package:michael_david/pages/section_page.dart';
 import 'package:michael_david/router/page_transitions.dart';
 
@@ -33,7 +33,7 @@ final GoRouter appRouter = GoRouter(
             fragment.isNotEmpty && fragment != 'home' ? fragment : null;
         return CustomTransitionPage(
           key: state.pageKey,
-          child: PortfolioPage(initialSection: initialSection),
+          child: DeferredPortfolioPage(initialSection: initialSection),
           transitionDuration: PageTransitions.portfolioDuration,
           reverseTransitionDuration: PageTransitions.portfolioReverseDuration,
           transitionsBuilder: (context, animation, secondary, child) {

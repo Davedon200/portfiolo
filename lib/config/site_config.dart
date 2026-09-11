@@ -8,13 +8,13 @@ class SiteConfig {
   static const homeTitleLine2 = 'Senior Full stack';
   static const homeTitleLine3 = 'Mobile Developer';
   static const homeHeroBody =
-      'I own mobile architecture, release governance, and delivery for a 5M-user app — leading a squad across a 50+ module Flutter codebase. 7 years building production iOS & Android, from offline-first data to release engineering.';
+      'I\'m Michael David, a Nigeria-based software developer. I manage mobile architecture, release governance, and delivery for a 1M-user app — leading a squad across a 30+ module Flutter codebase. 5 years building production iOS & Android, from offline-first data to release engineering.';
   static const homeAvailabilityLabel = 'Available for hire';
   static const homeAvailabilityTypes = 'Full-time · Fractional · Contract';
   static const homeHeroStats = <SiteStat>[
-    SiteStat(value: '5M+', label: 'Users reached'),
+    SiteStat(value: '1M+', label: 'Users reached'),
     SiteStat(value: '99.9%', label: 'Crash-free rate'),
-    SiteStat(value: '350+', label: 'Production releases'),
+    SiteStat(value: '110+', label: 'Production releases'),
   ];
   static const roleLine =
       'I am a Mobile Engineer specializing in Flutter and React Native';
@@ -119,25 +119,29 @@ class SiteConfig {
   static const uiChallenges = <UiChallenge>[
     UiChallenge(
       title: '3D Model',
-      detail: 'Interactive 3D character / product presentation built in Flutter.',
+      detail:
+          'Interactive 3D character / product presentation built in Flutter.',
       imageAsset: 'assets/challenges/challenge_3d.gif',
       url: 'https://x.com/daveeilish/status/1891293267586687335?s=46',
     ),
     UiChallenge(
       title: 'MuleEx',
-      detail: 'Logistics UI motion — live tracking feel, status updates, and polished flows.',
+      detail:
+          'Logistics UI motion — live tracking feel, status updates, and polished flows.',
       imageAsset: 'assets/challenges/challenge_muleex.gif',
       url: 'https://x.com/daveeilish/status/1891821883017855113?s=46',
     ),
     UiChallenge(
       title: 'Mich',
-      detail: 'UI challenge exploring expressive layout, motion, and brand-forward screens.',
+      detail:
+          'UI challenge exploring expressive layout, motion, and brand-forward screens.',
       imageAsset: 'assets/challenges/challenge_mich.gif',
       url: 'https://x.com/daveeilish/status/1891293267586687335?s=46',
     ),
     UiChallenge(
       title: 'Crypto App',
-      detail: 'Crypto product UI challenge — dense data surfaces with clean interaction.',
+      detail:
+          'Crypto product UI challenge — dense data surfaces with clean interaction.',
       imageAsset: 'assets/challenges/challenge_crypto.gif',
       url: 'https://x.com/daveeilish/status/1891293267586687335?s=46',
     ),
@@ -166,7 +170,8 @@ class SiteConfig {
     ),
     PortfolioProject(
       title: 'Ham-Chat',
-      detail: 'Messaging app with a strong focus on clean UI and conversation flow.',
+      detail:
+          'Messaging app with a strong focus on clean UI and conversation flow.',
       imageAsset: 'assets/projects/project_3.png',
       heightRatio: 1.05,
       url: 'https://github.com/Davedon200/Ham-Chat',
@@ -175,7 +180,8 @@ class SiteConfig {
     ),
     PortfolioProject(
       title: '3D Character Store',
-      detail: 'Service store that displays products on a 3D character experience.',
+      detail:
+          'Service store that displays products on a 3D character experience.',
       imageAsset: 'assets/projects/project_4.png',
       heightRatio: 1.15,
       url: 'https://github.com/Davedon200/3d_character-app',
@@ -184,7 +190,8 @@ class SiteConfig {
     ),
     PortfolioProject(
       title: 'Decide App',
-      detail: 'Decision helper — spin when you’re unsure and get a clear nudge.',
+      detail:
+          'Decision helper — spin when you’re unsure and get a clear nudge.',
       imageAsset: 'assets/projects/project_5.png',
       heightRatio: 0.88,
       url: 'https://github.com/Davedon200/Decide_App',
@@ -324,11 +331,7 @@ class PortfolioProject {
 }
 
 class PortfolioNavItem {
-  const PortfolioNavItem({
-    required this.label,
-    this.path,
-    this.sectionId,
-  });
+  const PortfolioNavItem({required this.label, this.path, this.sectionId});
 
   final String label;
   final String? path;

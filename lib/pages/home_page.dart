@@ -9,7 +9,6 @@ import 'package:michael_david/theme/app_typography.dart';
 import 'package:michael_david/utils/download_resume.dart';
 import 'package:michael_david/utils/open_external.dart';
 import 'package:michael_david/widgets/brand_logo.dart';
-import 'package:michael_david/widgets/nav_menu.dart';
 import 'package:michael_david/widgets/portrait_panel.dart';
 import 'package:michael_david/widgets/social_rail.dart';
 
@@ -118,6 +117,7 @@ class _HomePageState extends State<HomePage>
                       child: PortraitPanel(
                         portraitOpacity: _portraitOpacity,
                         portraitScale: _portraitScale,
+                        compact: true,
                       ),
                     ),
                     Expanded(child: _IntroPanel(wide: wide)),
@@ -139,13 +139,6 @@ class _HomePageState extends State<HomePage>
               );
             },
           ),
-          Positioned(
-            top: 12,
-            right: 12,
-            child: NavMenuButton(
-              iconColor: wide ? Colors.black : Colors.white,
-            ),
-          ),
           const Positioned(right: 10, bottom: 16, child: SocialRail()),
         ],
       ),
@@ -163,6 +156,10 @@ class _IntroPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final titleSize = wide ? 44.0 : 32.0;
+    final titleStyle = AppTypography.heroTitle(
+      fontSize: titleSize,
+      color: _textBlack,
+    );
 
     return Stack(
       fit: StackFit.expand,
@@ -207,28 +204,20 @@ class _IntroPanel extends StatelessWidget {
                       SizedBox(height: wide ? 18 : 14),
                       Text(
                         SiteConfig.homeTitleLine1,
-                        style: AppTypography.heroTitle(
-                          fontSize: titleSize,
-                          color: _textBlack,
-                        ),
+                        style: titleStyle,
                       ),
                       Text(
                         SiteConfig.homeTitleLine2,
-                        style: AppTypography.heroTitle(
-                          fontSize: titleSize,
-                          color: _textBlack,
-                        ),
+                        style: titleStyle,
                       ),
                       Text(
                         SiteConfig.homeTitleLine3,
-                        style: AppTypography.heroTitle(
-                          fontSize: titleSize,
-                          color: _textBlack,
-                        ),
+                        style: titleStyle,
                       ),
                       SizedBox(height: wide ? 22 : 18),
                       Text(
                         SiteConfig.homeHeroBody,
+                        textAlign: TextAlign.justify,
                         style: AppTypography.heroBody(
                           fontSize: wide ? 16 : 15,
                           color: _textBlack,
@@ -237,26 +226,45 @@ class _IntroPanel extends StatelessWidget {
                       SizedBox(height: wide ? 32 : 26),
                       const _HeroStatsRow(),
                       SizedBox(height: wide ? 32 : 26),
-                      Wrap(
-                        spacing: 12,
-                        runSpacing: 12,
-                        children: [
-                          _HeroPrimaryButton(
-                            label: 'Book a 20-min call',
-                            onPressed: () =>
-                                openExternal(SiteConfig.calendlyUrl),
-                          ),
-                          _HeroOutlineButton(
-                            label: 'View Case Studies',
-                            accent: true,
-                            onPressed: () => context.go('/projects'),
-                          ),
-                          _HeroOutlineButton(
-                            label: 'CV / Resume',
-                            icon: Icons.description_outlined,
-                            onPressed: downloadResume,
-                          ),
-                        ],
+                      LayoutBuilder(
+                        builder: (context, constraints) {
+                          return Wrap(
+                            spacing: 12,
+                            runSpacing: 12,
+                            children: [
+                              ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxWidth: constraints.maxWidth,
+                                ),
+                                child: _HeroPrimaryButton(
+                                  label: 'Book a 20-min call',
+                                  onPressed: () =>
+                                      openExternal(SiteConfig.calendlyUrl),
+                                ),
+                              ),
+                              ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxWidth: constraints.maxWidth,
+                                ),
+                                child: _HeroOutlineButton(
+                                  label: 'View Case Studies',
+                                  accent: true,
+                                  onPressed: () => context.go('/projects'),
+                                ),
+                              ),
+                              ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxWidth: constraints.maxWidth,
+                                ),
+                                child: _HeroOutlineButton(
+                                  label: 'CV / Resume',
+                                  icon: Icons.description_outlined,
+                                  onPressed: downloadResume,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -277,48 +285,98 @@ class _AvailabilityPill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final stackTypes = constraints.maxWidth < 340;
+
+        return Container(
+          width: stackTypes ? double.infinity : null,
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(999),
+            border: Border.all(
+              color: AppColors.availabilityTeal.withValues(alpha: 0.7),
+            ),
+            color: AppColors.availabilityTeal.withValues(alpha: 0.1),
+          ),
+          child: stackTypes
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _availabilityDot(),
+                        const SizedBox(width: 7),
+                        Flexible(
+                          child: Text(
+                            SiteConfig.homeAvailabilityLabel,
+                            style: _labelStyle(wide),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      SiteConfig.homeAvailabilityTypes,
+                      style: _typesStyle(wide),
+                    ),
+                  ],
+                )
+              : Wrap(
+                  spacing: 8,
+                  runSpacing: 4,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _availabilityDot(),
+                        const SizedBox(width: 7),
+                        Text(
+                          SiteConfig.homeAvailabilityLabel,
+                          style: _labelStyle(wide),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      SiteConfig.homeAvailabilityTypes,
+                      style: _typesStyle(wide),
+                    ),
+                  ],
+                ),
+        );
+      },
+    );
+  }
+
+  Widget _availabilityDot() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(999),
-        border: Border.all(
-          color: AppColors.availabilityTeal.withValues(alpha: 0.7),
-        ),
-        color: AppColors.availabilityTeal.withValues(alpha: 0.1),
+      width: 6,
+      height: 6,
+      decoration: const BoxDecoration(
+        color: AppColors.availabilityTeal,
+        shape: BoxShape.circle,
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 6,
-            height: 6,
-            decoration: const BoxDecoration(
-              color: AppColors.availabilityTeal,
-              shape: BoxShape.circle,
-            ),
-          ),
-          const SizedBox(width: 7),
-          Text(
-            SiteConfig.homeAvailabilityLabel,
-            style: AppTypography.heroBody(
-              fontSize: wide ? 12 : 11,
-              fontWeight: FontWeight.w700,
-              color: AppColors.availabilityTeal,
-              height: 1.2,
-            ),
-          ),
-          const SizedBox(width: 8),
-          Text(
-            SiteConfig.homeAvailabilityTypes,
-            style: AppTypography.heroBody(
-              fontSize: wide ? 11 : 10,
-              fontWeight: FontWeight.w500,
-              color: AppColors.availabilityTeal,
-              height: 1.2,
-            ),
-          ),
-        ],
-      ),
+    );
+  }
+
+  TextStyle _labelStyle(bool wide) {
+    return AppTypography.heroBody(
+      fontSize: wide ? 12 : 11,
+      fontWeight: FontWeight.w700,
+      color: AppColors.availabilityTeal,
+      height: 1.2,
+    );
+  }
+
+  TextStyle _typesStyle(bool wide) {
+    return AppTypography.heroBody(
+      fontSize: wide ? 11 : 10,
+      fontWeight: FontWeight.w500,
+      color: AppColors.availabilityTeal,
+      height: 1.2,
     );
   }
 }
@@ -373,21 +431,27 @@ class _HeroStatsRow extends StatelessWidget {
               );
             }
 
-            return IntrinsicHeight(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  for (var i = 0; i < stats.length; i++) ...[
-                    if (i > 0)
-                      Container(
-                        width: 2.5,
-                        margin: const EdgeInsets.symmetric(horizontal: 18),
-                        color: AppColors.primary,
+            // Border dividers avoid IntrinsicHeight (incompatible with wrapping labels).
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (var i = 0; i < stats.length; i++)
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(left: i == 0 ? 0 : 18),
+                      padding: const EdgeInsets.only(left: 18),
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          left: BorderSide(
+                            color: AppColors.primary,
+                            width: 2.5,
+                          ),
+                        ),
                       ),
-                    Expanded(child: _HeroStatItem(stat: stats[i])),
-                  ],
-                ],
-              ),
+                      child: _HeroStatItem(stat: stats[i]),
+                    ),
+                  ),
+              ],
             );
           },
         ),
@@ -423,6 +487,9 @@ class _HeroStatItem extends StatelessWidget {
             color: Colors.black,
             fontWeight: FontWeight.w500,
           ),
+          softWrap: true,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );
@@ -456,20 +523,24 @@ class _HeroPrimaryButton extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  label,
-                  style: AppTypography.heroBody(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    label,
+                    style: AppTypography.heroBody(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 8),
-                const Icon(Icons.arrow_forward, size: 16, color: Colors.white),
-              ],
+                  const SizedBox(width: 8),
+                  const Icon(Icons.arrow_forward, size: 16, color: Colors.white),
+                ],
+              ),
             ),
           ),
         ),
@@ -508,26 +579,30 @@ class _HeroOutlineButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: borderColor),
           ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (icon != null) ...[
-                Icon(icon, size: 16, color: textColor),
-                const SizedBox(width: 8),
-              ],
-              Text(
-                label,
-                style: AppTypography.heroBody(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: textColor,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (icon != null) ...[
+                  Icon(icon, size: 16, color: textColor),
+                  const SizedBox(width: 8),
+                ],
+                Text(
+                  label,
+                  style: AppTypography.heroBody(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: textColor,
+                  ),
                 ),
-              ),
-              if (icon == null) ...[
-                const SizedBox(width: 8),
-                Icon(Icons.arrow_forward, size: 16, color: textColor),
+                if (icon == null) ...[
+                  const SizedBox(width: 8),
+                  Icon(Icons.arrow_forward, size: 16, color: textColor),
+                ],
               ],
-            ],
+            ),
           ),
         ),
       ),

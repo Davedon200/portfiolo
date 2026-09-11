@@ -68,10 +68,23 @@ flutter:
     - assets/images/logo.png
     - assets/images/portrait.png
     - assets/images/portrait_cutout.png
+    - assets/images/portrait_cutout.webp
     - assets/icons/
     - assets/projects/
-    - assets/docs/
-    - assets/challenges/
+
+  fonts:
+    - family: Manrope
+      fonts:
+        - asset: assets/fonts/Manrope.ttf
+    - family: Syne
+      fonts:
+        - asset: assets/fonts/Syne.ttf
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter.ttf
+    - family: JetBrains Mono
+      fonts:
+        - asset: assets/fonts/JetBrainsMono.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

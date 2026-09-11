@@ -15,3 +15,13 @@ void downloadBytes(Uint8List bytes, String fileName) {
   anchor.remove();
   web.URL.revokeObjectURL(url);
 }
+
+void downloadFromUrl(String url, String fileName) {
+  final anchor = web.HTMLAnchorElement()
+    ..href = url
+    ..download = fileName
+    ..rel = 'noopener';
+  web.document.body?.append(anchor);
+  anchor.click();
+  anchor.remove();
+}

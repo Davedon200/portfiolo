@@ -71,6 +71,11 @@ flutter:
     - assets/images/portrait_cutout.webp
     - assets/icons/
     - assets/projects/
+    - assets/projects/rhapsody_tv/
+    - assets/projects/muleex/
+    - assets/projects/vulte/
+    - assets/projects/rhapsody_media_network/
+    - assets/projects/mediaflow/
 
   fonts:
     - family: Manrope

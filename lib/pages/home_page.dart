@@ -247,7 +247,7 @@ class _IntroPanel extends StatelessWidget {
                                   maxWidth: constraints.maxWidth,
                                 ),
                                 child: _HeroOutlineButton(
-                                  label: 'View Case Studies',
+                                  label: 'View Projects',
                                   accent: true,
                                   onPressed: () => context.go('/projects'),
                                 ),

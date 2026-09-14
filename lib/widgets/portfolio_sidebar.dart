@@ -52,7 +52,7 @@ class PortfolioSidebar extends StatelessWidget {
               const CustomPaint(painter: SidebarPatternPainter()),
               Column(
                 children: [
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 40),
                   const _SidebarAvatar(),
                   const SizedBox(height: 28),
                   Expanded(
@@ -93,25 +93,34 @@ class PortfolioSidebar extends StatelessWidget {
   }
 }
 
-/// White ring with a zoomed head-and-shoulders crop. Only the head pops out.
+/// White ring with a passport head-and-shoulders crop. Full head sits above the ring with headroom.
 class _SidebarAvatar extends StatelessWidget {
   const _SidebarAvatar();
 
   static const _ring = 140.0;
-  static const _overflow = 36.0;
+  static const _overflow = 72.0;
+  /// Raises only the lower ring; top headroom stays the same.
+  static const _circleLift = 28.0;
 
   @override
   Widget build(BuildContext context) {
+    // Full ring sits behind the portrait so the head always stays in front.
+    // Lower semicircle is redrawn on top so the bottom arc stays visible.
+    const translateY = 52.0;
+    const scale = 1.95;
+    const imageAlignY = -0.48;
+    final boxHeight = _ring + _overflow + _circleLift;
     return SizedBox(
       width: _ring,
-      height: _ring + _overflow,
+      height: boxHeight,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
+          // Circle fill + full white ring BEHIND the portrait.
           Positioned(
             left: 0,
             right: 0,
-            bottom: 0,
+            bottom: _circleLift,
             height: _ring,
             child: Container(
               decoration: BoxDecoration(
@@ -128,20 +137,65 @@ class _SidebarAvatar extends StatelessWidget {
               ),
             ),
           ),
+          // Portrait on top — head covers the upper ring wherever they overlap.
           Positioned.fill(
-            child: ClipPath(
-              clipper: const _PopOutClipper(),
-              child: Transform.translate(
-                offset: const Offset(0, -10),
-                child: Transform.scale(
-                  scale: 2.2,
-                  alignment: const Alignment(0, -0.75),
-                  child: Image.asset(
-                    'assets/images/portrait_cutout.png',
-                    fit: BoxFit.cover,
-                    alignment: const Alignment(0, -0.72),
-                    filterQuality: FilterQuality.high,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final circleTop =
+                    constraints.maxHeight - _ring - _circleLift;
+                return ClipPath(
+                  clipper: const _PopOutClipper(circleLift: _circleLift),
+                  child: ShaderMask(
+                    blendMode: BlendMode.dstIn,
+                    shaderCallback: (bounds) {
+                      // Soft-fade only the head pop-out (above circleTop).
+                      final headEnd = circleTop / bounds.height;
+                      return LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: const [
+                          Color(0x00FFFFFF),
+                          Color(0xBBFFFFFF),
+                          Color(0xFFFFFFFF),
+                          Color(0xFFFFFFFF),
+                        ],
+                        stops: [
+                          0.0,
+                          (headEnd * 0.55).clamp(0.04, 0.28),
+                          headEnd.clamp(0.18, 0.45),
+                          1.0,
+                        ],
+                      ).createShader(bounds);
+                    },
+                    child: Transform.translate(
+                      offset: const Offset(0, translateY),
+                      child: Transform.scale(
+                        scale: scale,
+                        alignment: const Alignment(0, -0.45),
+                        child: Image.asset(
+                          'assets/images/portrait_cutout.png',
+                          fit: BoxFit.cover,
+                          alignment: const Alignment(0, imageAlignY),
+                          filterQuality: FilterQuality.high,
+                        ),
+                      ),
+                    ),
                   ),
+                );
+              },
+            ),
+          ),
+          // Lower semicircle on top so the bottom arc stays visible around the torso.
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: _circleLift,
+            height: _ring,
+            child: const IgnorePointer(
+              child: CustomPaint(
+                painter: _LowerSemiRingPainter(
+                  color: Colors.white,
+                  strokeWidth: 2.5,
                 ),
               ),
             ),
@@ -152,23 +206,65 @@ class _SidebarAvatar extends StatelessWidget {
   }
 }
 
+/// Lower semicircle stroke drawn above the portrait.
+class _LowerSemiRingPainter extends CustomPainter {
+  const _LowerSemiRingPainter({
+    required this.color,
+    required this.strokeWidth,
+  });
+
+  final Color color;
+  final double strokeWidth;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final inset = strokeWidth / 2;
+    final rect = Rect.fromLTWH(
+      inset,
+      inset,
+      size.width - strokeWidth,
+      size.height - strokeWidth,
+    );
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth
+      ..strokeCap = StrokeCap.round;
+    // 0 = east; sweep π clockwise → lower semicircle.
+    canvas.drawArc(rect, 0, 3.141592653589793, false, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant _LowerSemiRingPainter oldDelegate) =>
+      oldDelegate.color != color || oldDelegate.strokeWidth != strokeWidth;
+}
+
 class _PopOutClipper extends CustomClipper<Path> {
-  const _PopOutClipper();
+  const _PopOutClipper({this.circleLift = 0});
+
+  final double circleLift;
 
   @override
   Path getClip(Size size) {
     final diameter = size.width;
-    final overflow = size.height - diameter;
-    final circle = Rect.fromLTWH(0, overflow, diameter, diameter);
-    final chimney = Rect.fromLTWH(0, 0, diameter, overflow + diameter * 0.55);
+    final radius = diameter / 2;
+    // Circle raised by circleLift; top overflow / head chimney unchanged.
+    final circleTop = size.height - diameter - circleLift;
+    final circle = Rect.fromLTWH(0, circleTop, diameter, diameter);
+    final chimney = RRect.fromRectAndCorners(
+      Rect.fromLTWH(0, 0, diameter, circleTop + radius),
+      topLeft: Radius.circular(radius),
+      topRight: Radius.circular(radius),
+    );
 
     return Path()
       ..addOval(circle)
-      ..addRect(chimney);
+      ..addRRect(chimney);
   }
 
   @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
+  bool shouldReclip(covariant _PopOutClipper oldClipper) =>
+      oldClipper.circleLift != circleLift;
 }
 
 class _SidebarLink extends StatelessWidget {

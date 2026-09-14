@@ -35,15 +35,15 @@ class SiteConfig {
 
   static const aboutTitle = 'Professional Summary';
   static const aboutBody =
-      'Mobile Engineer focused on Flutter and React Native. I turn Figma designs into responsive, production-ready UIs, integrate REST APIs and payment gateways, and ship real-time features with WebSockets — including live shipment tracking and digital banking flows.\n\n'
-      'At Scelloo I build end-to-end mobile experiences with Bloc and Provider; at Polaris Bank I delivered Target Savings and Safe Lock features with Dio and Provider, working closely with design and QA.';
+      'Mobile Engineer and Full Stack Engineer focused on Flutter, React Native, and backend delivery. I turn Figma designs into production-ready UIs, integrate REST APIs and payment gateways, and ship real-time features with WebSockets — including live shipment tracking and digital banking flows.\n\n'
+      'At Loveworld Publishing I lead mobile and backend systems for media production. At Scelloo I shipped end-to-end mobile experiences with Bloc and Provider, including AI-driven features. At Polaris Bank I delivered Target Savings and Safe Lock with Dio and Provider, working closely with design and QA.';
 
   static const statsIntro =
-      'A snapshot of experience shipping production mobile products.';
+      'A snapshot of experience shipping production mobile, web, and media products.';
   static const siteStats = <SiteStat>[
-    SiteStat(value: '2+', label: 'Years in mobile'),
-    SiteStat(value: '6+', label: 'Apps & products shipped'),
-    SiteStat(value: '2', label: 'Production domains'),
+    SiteStat(value: '3+', label: 'Years in mobile'),
+    SiteStat(value: '9+', label: 'Apps & products shipped'),
+    SiteStat(value: '3', label: 'Production domains'),
     SiteStat(value: '2', label: 'Flutter certifications'),
   ];
 
@@ -58,29 +58,42 @@ class SiteConfig {
   static const responseTime = 'Usually replies within 24–48 hours';
 
   static const experienceIntro =
-      'Recent roles shipping mobile products in fintech and logistics.';
+      'Recent roles shipping products in media publishing, fintech, and logistics.';
   static const experiences = <SiteExperience>[
     SiteExperience(
-      role: 'Software Engineer',
-      org: 'Scelloo · Lekki, Lagos',
-      period: 'Apr 2023 – Present',
+      role: 'Backend Engineer & Mobile Lead',
+      org: 'Loveworld Publishing · Lagos',
+      period: 'Oct 2025 – Present',
       detail:
-          'Shipped production UIs from Figma handoffs and delivered real-time WebSocket tracking for live shipments and trip status. Integrated backend APIs, Google services, and Paystack payment flows with Bloc and Provider state management.',
-      icon: 'work',
+          'Cut deployment time from 72 hours to 50 minutes with GitHub Actions and Amazon S3. Delivered 5+ mobile/web, UI/UX, and AI projects. Built FastAPI microservices with Docker, MySQL, and PostgreSQL for an end-to-end media production workflow serving 100+ users hourly.',
+      icon: 'movie',
     ),
     SiteExperience(
-      role: 'Software Developer (Contract)',
-      org: 'Polaris Bank · Ikeja, Lagos',
+      role: 'Mobile Developer (Contract)',
+      org: 'Polaris Bank · Lagos',
       period: 'Oct 2024 – Dec 2024',
       detail:
-          'Delivered Target Savings and Safe Lock banking features to production using Provider and Dio. Built responsive Flutter UI from design specs and partnered with QA to improve responsiveness and release quality.',
+          'Integrated APIs for Target Savings and Safe Lock, managing state with Provider and Dio. Partnered with QA to identify and fix bugs, increasing application responsiveness by 100%.',
       icon: 'account_balance',
+    ),
+    SiteExperience(
+      role: 'Senior Mobile Engineer',
+      org: 'Scelloo · Lagos',
+      period: 'Apr 2023 – Mar 2026',
+      detail:
+          'Shipped cross-platform apps that improved UI/UX and client satisfaction by 82%. Integrated AI chatbots and ML models, plus WebSocket live shipment and trip tracking. Led the team through Google services, payment gateways, Bloc, and Provider — cutting development cycles by 15%.',
+      icon: 'work',
     ),
   ];
 
   static const skillsIntro =
-      'Tools and patterns I use to ship reliable Flutter and React Native apps.';
+      'Tools and patterns I use to ship Flutter, React Native, and backend systems.';
   static const skillGroups = <SiteSkillGroup>[
+    SiteSkillGroup(
+      title: 'Languages',
+      items: ['Dart', 'JavaScript', 'Python', 'C++'],
+      icon: 'code',
+    ),
     SiteSkillGroup(
       title: 'Mobile',
       items: ['Flutter', 'Dart', 'React Native', 'Firebase', 'WebSockets'],
@@ -92,14 +105,14 @@ class SiteConfig {
       icon: 'architecture',
     ),
     SiteSkillGroup(
-      title: 'APIs & Delivery',
-      items: ['REST APIs', 'Dio', 'Paystack', 'Figma handoff', 'Git', 'Jira'],
+      title: 'APIs',
+      items: ['REST APIs', 'Dio', 'Paystack'],
       icon: 'api',
     ),
   ];
 
   static const portfolioIntro =
-      'Production work in banking and logistics, plus personal open-source builds.';
+      'Production work in banking, logistics, and media.';
 
   static const portfolioNavItems = <PortfolioNavItem>[
     PortfolioNavItem(label: 'Summary', sectionId: 'about'),
@@ -151,61 +164,85 @@ class SiteConfig {
     PortfolioProject(
       title: 'Vulte',
       detail:
-          'Fully digital bank on smart devices. Built Safe Lock (10% interest p.a.) and Target Savings (goals from \$10 minimum).',
-      imageAsset: 'assets/projects/project_1.png',
-      heightRatio: 1.2,
+          'Digital bank with 1M+ downloads. Implemented Safe Lock (10% interest p.a.) and Target Savings — personalized goals with a \$10 minimum deposit.',
+      imageAsset: 'assets/projects/vulte/00_intro.jpg',
+      images: [
+        'assets/projects/vulte/00_intro.jpg',
+        'assets/projects/vulte/01_home.jpg',
+        'assets/projects/vulte/02_receipt.jpg',
+      ],
+      heightRatio: 1.15,
       tag: 'Dart · Flutter',
       category: ProjectCategory.production,
-      metrics: 'Banking · Safe Lock · Target Savings',
+      metrics: '1M+ downloads · Safe Lock · Target Savings',
     ),
     PortfolioProject(
       title: 'MuleEx',
       detail:
-          'Enterprise transportation and delivery. In-app alerts, Paystack payments, and WebSocket live shipment/trip updates.',
-      imageAsset: 'assets/projects/project_2.png',
-      heightRatio: 0.95,
+          'Enterprise transportation and delivery platform. In-app alerts, payment gateways, and WebSockets for live shipment and trip updates between app and backend.',
+      imageAsset: 'assets/projects/muleex/00_intro.jpg',
+      images: [
+        'assets/projects/muleex/00_intro.jpg',
+        'assets/projects/muleex/01_login.jpg',
+        'assets/projects/muleex/02_shipping_platform.jpg',
+        'assets/projects/muleex/03_payment.jpg',
+        'assets/projects/muleex/04_hub.jpg',
+        'assets/projects/muleex/05_signup.jpg',
+        'assets/projects/muleex/06_quote.jpg',
+      ],
+      heightRatio: 1.15,
       tag: 'Dart · Flutter',
       category: ProjectCategory.production,
-      metrics: 'WebSockets · Paystack · Live tracking',
+      metrics: 'WebSockets · Payments · Live tracking',
     ),
     PortfolioProject(
-      title: 'Ham-Chat',
+      title: 'MediaFlow',
       detail:
-          'Messaging app with a strong focus on clean UI and conversation flow.',
-      imageAsset: 'assets/projects/project_3.png',
-      heightRatio: 1.05,
-      url: 'https://github.com/Davedon200/Ham-Chat',
-      tag: 'Flutter',
-      category: ProjectCategory.personal,
+          'Role-based platform for production teams to submit content, review collaboratively, approve for broadcast, and track performance against goals — lifting productivity, transparency, and performance by 89%.',
+      imageAsset: 'assets/projects/mediaflow/00_intro.jpg',
+      videoUrl:
+          'https://drive.google.com/file/d/1VYF9dvXgn5P4qpEsISOLzVl3MfMHSBBe/preview',
+      heightRatio: 0.72,
+      tag: 'Python · FastAPI',
+      category: ProjectCategory.production,
+      metrics: 'Media workflow · 89% productivity',
     ),
     PortfolioProject(
-      title: '3D Character Store',
+      title: 'Rhapsody TV',
       detail:
-          'Service store that displays products on a 3D character experience.',
-      imageAsset: 'assets/projects/project_4.png',
+          'Designed and developed the cross-platform mobile version of Rhapsody TV for Rhapsody of Realities.',
+      imageAsset: 'assets/projects/rhapsody_tv/00_intro.jpg',
+      images: [
+        'assets/projects/rhapsody_tv/00_intro.jpg',
+        'assets/projects/rhapsody_tv/01_splash.jpg',
+        'assets/projects/rhapsody_tv/02_discover.jpg',
+        'assets/projects/rhapsody_tv/03_discover_live.jpg',
+        'assets/projects/rhapsody_tv/04_categories.jpg',
+        'assets/projects/rhapsody_tv/05_schedule.jpg',
+        'assets/projects/rhapsody_tv/06_live.jpg',
+        'assets/projects/rhapsody_tv/07_vod.jpg',
+        'assets/projects/rhapsody_tv/08_travels.jpg',
+        'assets/projects/rhapsody_tv/09_profile.jpg',
+      ],
       heightRatio: 1.15,
-      url: 'https://github.com/Davedon200/3d_character-app',
-      tag: 'Flutter',
-      category: ProjectCategory.personal,
+      tag: 'Flutter · Dart',
+      category: ProjectCategory.production,
+      metrics: 'Cross-platform · Media',
     ),
     PortfolioProject(
-      title: 'Decide App',
+      title: 'Rhapsody Media Network',
       detail:
-          'Decision helper — spin when you’re unsure and get a clear nudge.',
-      imageAsset: 'assets/projects/project_5.png',
-      heightRatio: 0.88,
-      url: 'https://github.com/Davedon200/Decide_App',
-      tag: 'Flutter',
-      category: ProjectCategory.personal,
-    ),
-    PortfolioProject(
-      title: 'Hives',
-      detail: 'Sound utility giving quick access to tonic solfa in one tap.',
-      imageAsset: 'assets/projects/project_6.png',
-      heightRatio: 1.0,
-      url: 'https://github.com/Davedon200/Hives',
-      tag: 'Flutter',
-      category: ProjectCategory.personal,
+          'Portal that unifies creatives, designers, video editors, writers, and media professionals into one structured global system focused on excellence, consistency, and impact.',
+      imageAsset: 'assets/projects/rhapsody_media_network/00_intro.jpg',
+      images: [
+        'assets/projects/rhapsody_media_network/00_intro.jpg',
+        'assets/projects/rhapsody_media_network/01_about.jpg',
+        'assets/projects/rhapsody_media_network/02_library.jpg',
+      ],
+      heightRatio: 0.72,
+      tag: 'Web · Backend',
+      category: ProjectCategory.production,
+      metrics: 'Creatives portal · Global media',
     ),
   ];
 
@@ -213,25 +250,23 @@ class SiteConfig {
       'What collaborators notice when we ship mobile products together.';
   static const testimonials = <SiteTestimonial>[
     SiteTestimonial(
-      name: 'Product Collaborator',
-      role: 'Product Manager',
-      company: 'Logistics · Lagos',
+      name: 'Victor Nike',
+      role: 'Graduate Research Assistant @Florida A&M University',
       quote:
-          'Michael turns complex Flutter requirements into reliable, real-time experiences — clear communication from design handoff to release.',
+          'Michael is a great developer, he is dependable, takes ownership of his work, and is always willing to step up, solve difficult problems, and support the team. I would confidently recommend for any Senior Mobile Developer role.',
       rating: 5,
     ),
     SiteTestimonial(
-      name: 'Engineering Peer',
-      role: 'Mobile Engineer',
-      company: 'Fintech',
+      name: 'Emmanuel Sunday',
+      role: 'Staff Engineer at Heartbeat Medical',
       quote:
-          'Strong ownership with Bloc/Provider architecture, thorough API work, and a steady partnership with design and QA.',
+          'I\'ve mentored Michael. I can admit he is a great problem solver and an out-of-box thinker. He likes challenges and he has a passion for the edge of techs. He is also a great and professional student. I learned many things from him.',
       rating: 5,
     ),
   ];
 
   static const achievementsIntro =
-      'Formal training that backs day-to-day Flutter architecture and state management.';
+      'Education and formal training that backs Flutter architecture, state management, and data work.';
   static const portfolioAchievements = <SiteAchievement>[
     SiteAchievement(
       year: 'Dec 2024',
@@ -244,6 +279,16 @@ class SiteConfig {
       title: 'Flutter Advanced — Clean Architecture with MVVM',
       detail:
           'Udemy (UC-98aeb935-49ac-4be9-a305-eb448c71d934) — Dependency Injection, Routes Manager, MVVM, API caching, mock/stub APIs, JSON serialization, Stream/RX Dart.',
+    ),
+    SiteAchievement(
+      year: 'Education',
+      title: 'BSc. Physics and Astronomy',
+      detail: 'Undergraduate degree listed on CV — Physics and Astronomy.',
+    ),
+    SiteAchievement(
+      year: 'Education',
+      title: 'Masters in Data Computing',
+      detail: 'Graduate training in data computing, supporting AI and backend delivery.',
     ),
   ];
 
@@ -313,6 +358,8 @@ class PortfolioProject {
     required this.title,
     required this.detail,
     required this.imageAsset,
+    this.images = const [],
+    this.videoUrl,
     this.url,
     this.heightRatio = 1.0,
     this.tag,
@@ -323,11 +370,16 @@ class PortfolioProject {
   final String title;
   final String detail;
   final String imageAsset;
+  final List<String> images;
+  final String? videoUrl;
   final String? url;
   final double heightRatio;
   final String? tag;
   final ProjectCategory category;
   final String? metrics;
+
+  List<String> get galleryImages =>
+      images.isNotEmpty ? images : <String>[imageAsset];
 }
 
 class PortfolioNavItem {

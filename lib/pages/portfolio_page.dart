@@ -11,6 +11,7 @@ import 'package:michael_david/widgets/content_section_header.dart';
 import 'package:michael_david/widgets/gradient_button.dart';
 import 'package:michael_david/widgets/portfolio_sidebar.dart';
 import 'package:michael_david/widgets/project_grid.dart';
+import 'package:michael_david/widgets/skill_grid.dart';
 import 'package:michael_david/widgets/social_rail.dart';
 import 'package:michael_david/widgets/stats_row.dart';
 import 'package:michael_david/widgets/testimonial_card.dart';
@@ -382,34 +383,7 @@ class _PortfolioContent extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  if (wide)
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        for (var i = 0;
-                            i < SiteConfig.skillGroups.length;
-                            i++) ...[
-                          if (i > 0) const SizedBox(width: 14),
-                          Expanded(
-                            child: ContentCard(
-                              icon: _iconFor(SiteConfig.skillGroups[i].icon),
-                              title: SiteConfig.skillGroups[i].title,
-                              subtitle:
-                                  SiteConfig.skillGroups[i].items.join(' · '),
-                            ),
-                          ),
-                        ],
-                      ],
-                    )
-                  else
-                    for (var i = 0; i < SiteConfig.skillGroups.length; i++) ...[
-                      if (i > 0) const SizedBox(height: 12),
-                      ContentCard(
-                        icon: _iconFor(SiteConfig.skillGroups[i].icon),
-                        title: SiteConfig.skillGroups[i].title,
-                        subtitle: SiteConfig.skillGroups[i].items.join(' · '),
-                      ),
-                    ],
+                  SkillsGrid(groups: SiteConfig.skillGroups),
                 ],
               ),
             ),
@@ -435,7 +409,6 @@ class _PortfolioContent extends StatelessWidget {
                   const SizedBox(height: 20),
                   ProjectGrid(
                     projects: SiteConfig.portfolioProjects,
-                    wide: wide,
                   ),
                 ],
               ),
@@ -521,28 +494,9 @@ class _PortfolioContent extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 28),
-                  if (wide)
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        for (var i = 0;
-                            i < SiteConfig.testimonials.length;
-                            i++) ...[
-                          if (i > 0) const SizedBox(width: 20),
-                          Expanded(
-                            child: TestimonialCard(
-                              testimonial: SiteConfig.testimonials[i],
-                            ),
-                          ),
-                        ],
-                      ],
-                    )
-                  else
-                    for (final t in SiteConfig.testimonials)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
-                        child: TestimonialCard(testimonial: t),
-                      ),
+                  TestimonialsGrid(
+                    testimonials: SiteConfig.testimonials,
+                  ),
                 ],
               ),
             ),
@@ -667,6 +621,8 @@ IconData _iconFor(String key) {
   switch (key) {
     case 'account_balance':
       return Icons.account_balance_outlined;
+    case 'movie':
+      return Icons.movie_outlined;
     case 'phone_iphone':
       return Icons.phone_iphone;
     case 'architecture':

@@ -1,7 +1,57 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:michael_david/config/site_config.dart';
 import 'package:michael_david/theme/app_colors.dart';
 import 'package:michael_david/theme/app_typography.dart';
+
+class TestimonialsGrid extends StatelessWidget {
+  const TestimonialsGrid({super.key, required this.testimonials});
+
+  final List<SiteTestimonial> testimonials;
+
+  static const _gap = 20.0;
+  static const _twoColMin = 520.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final cols = constraints.maxWidth >= _twoColMin ? 2 : 1;
+        final rows = <List<SiteTestimonial>>[];
+        for (var i = 0; i < testimonials.length; i += cols) {
+          rows.add(
+            testimonials.sublist(i, math.min(i + cols, testimonials.length)),
+          );
+        }
+
+        return Column(
+          children: [
+            for (var r = 0; r < rows.length; r++) ...[
+              if (r > 0) const SizedBox(height: _gap),
+              if (rows[r].length == 1)
+                TestimonialCard(testimonial: rows[r].first)
+              else
+                IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      for (var i = 0; i < rows[r].length; i++) ...[
+                        if (i > 0) const SizedBox(width: _gap),
+                        Expanded(
+                          child: TestimonialCard(testimonial: rows[r][i]),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+            ],
+          ],
+        );
+      },
+    );
+  }
+}
 
 class TestimonialCard extends StatelessWidget {
   const TestimonialCard({super.key, required this.testimonial});
@@ -18,9 +68,7 @@ class TestimonialCard extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: _avatarOverlap),
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.fromLTRB(24, _avatarOverlap + 16, 24, 28),
+          child: DecoratedBox(
             decoration: BoxDecoration(
               color: AppColors.surfaceCard,
               borderRadius: BorderRadius.circular(16),
@@ -32,61 +80,87 @@ class TestimonialCard extends StatelessWidget {
                 ),
               ],
             ),
-            child: Column(
-              children: [
-                Text(
-                  testimonial.name,
-                  style: AppTypography.body(
-                    color: AppColors.cvIndigo,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                  ),
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  24,
+                  _avatarOverlap + 16,
+                  24,
+                  28,
                 ),
-                if (testimonial.role != null || testimonial.company != null) ...[
-                  const SizedBox(height: 6),
-                  Text(
-                    [
-                      if (testimonial.role != null) testimonial.role!,
-                      if (testimonial.company != null) testimonial.company!,
-                    ].join(' · '),
-                    textAlign: TextAlign.center,
-                    style: AppTypography.body(
-                      color: AppColors.textMutedOnLight,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      testimonial.name,
+                      textAlign: TextAlign.center,
+                      style: AppTypography.body(
+                        color: AppColors.cvIndigo,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                ],
-                const SizedBox(height: 12),
-                Text(
-                  testimonial.quote,
-                  textAlign: TextAlign.center,
-                  style: AppTypography.body(
-                    color: AppColors.textMutedOnLight,
-                    fontSize: 14,
-                    height: 1.6,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                    5,
-                    (i) => Icon(
-                      Icons.star_rounded,
-                      size: 18,
-                      color: i < testimonial.rating
-                          ? AppColors.cvBlue
-                          : AppColors.cvBlue.withValues(alpha: 0.25),
+                    if (testimonial.role != null ||
+                        testimonial.company != null) ...[
+                      const SizedBox(height: 6),
+                      Text(
+                        [
+                          if (testimonial.role != null) testimonial.role!,
+                          if (testimonial.company != null) testimonial.company!,
+                        ].join(' · '),
+                        textAlign: TextAlign.center,
+                        style: AppTypography.body(
+                          color: AppColors.textMutedOnLight,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          height: 1.4,
+                        ),
+                      ),
+                    ],
+                    const SizedBox(height: 12),
+                    _Quote(testimonial: testimonial),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        5,
+                        (i) => Icon(
+                          Icons.star_rounded,
+                          size: 18,
+                          color: i < testimonial.rating
+                              ? AppColors.cvBlue
+                              : AppColors.cvBlue.withValues(alpha: 0.25),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),
         _Avatar(testimonial: testimonial),
       ],
+    );
+  }
+}
+
+class _Quote extends StatelessWidget {
+  const _Quote({required this.testimonial});
+
+  final SiteTestimonial testimonial;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      testimonial.quote,
+      textAlign: TextAlign.center,
+      style: AppTypography.body(
+        color: AppColors.textMutedOnLight,
+        fontSize: 14,
+        height: 1.6,
+      ),
     );
   }
 }

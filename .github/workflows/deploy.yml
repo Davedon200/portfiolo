@@ -1,4 +1,4 @@
-name: Build & Deploy
+name: Build & Deploy Michael's Portfiolo
 
 on:
   push:
@@ -13,25 +13,39 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_BUCKET: michaeldavid.world
       AWS_REGION: eu-north-1
-      AWS_DEFAULT_REGION: eu-north-1
     steps:
       - uses: actions/checkout@v4
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.41.7"
-          cache: true
 
-      - name: Build web
-        run: flutter build web --release --tree-shake-icons --base-href /
+      - name: Parse Version
+        id: version
+        run: |
+          VERSION=$(grep '^version:' pubspec.yaml | cut -d ' ' -f 2 | cut -d '+' -f 1)
+          echo "release=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Build Michael Web App
+        run: |
+          flutter build web --release --base-href /${{ steps.version.outputs.release }}/ \
+          --dart-define=APP_VERSION=${{ steps.version.outputs.release }}
+
+      - name: Move build artifacts
+        run: |
+          mkdir -p build/web_output/${{ steps.version.outputs.release }}
+          mv build/web/* build/web_output/${{ steps.version.outputs.release }}/
+          mv build/web_output/${{ steps.version.outputs.release }}/index.html build/web_output/index.html
+          echo "{\"version\": \"${{ steps.version.outputs.release }}\"}" > build/web_output/version.json
 
       - name: Upload to S3
         run: |
-          aws s3 sync build/web/ s3://$AWS_BUCKET/ \
-            --delete \
-            --cache-control "public, max-age=31536000, immutable" \
-            --exclude "index.html"
+          aws s3 cp build/web_output/${{ steps.version.outputs.release }}/ s3://$AWS_BUCKET/${{ steps.version.outputs.release }}/ \
+          --recursive \
+          --cache-control "public, max-age=31536000, immutable"
 
-          aws s3 cp build/web/index.html s3://$AWS_BUCKET/index.html \
+          aws s3 cp build/web_output/index.html s3://$AWS_BUCKET/index.html \
+            --cache-control "no-store, no-cache, must-revalidate"
+
+          aws s3 cp build/web_output/version.json s3://$AWS_BUCKET/version.json \
             --cache-control "no-store, no-cache, must-revalidate"

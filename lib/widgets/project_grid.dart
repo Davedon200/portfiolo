@@ -219,7 +219,7 @@ class _ProjectTile extends StatelessWidget {
                   Image.asset(
                     project.imageAsset,
                     fit: BoxFit.cover,
-                    filterQuality: FilterQuality.high,
+                    filterQuality: FilterQuality.medium,
                   ),
                   Positioned(
                     left: 0,

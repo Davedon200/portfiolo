@@ -41,8 +41,8 @@ class SiteConfig {
   static const statsIntro =
       'A snapshot of experience shipping production mobile, web, and media products.';
   static const siteStats = <SiteStat>[
-    SiteStat(value: '3+', label: 'Years in mobile'),
-    SiteStat(value: '9+', label: 'Apps & products shipped'),
+    SiteStat(value: '4+', label: 'Yrs in development'),
+    SiteStat(value: '5+', label: 'Apps shipped'),
     SiteStat(value: '3', label: 'Production domains'),
     SiteStat(value: '2', label: 'Flutter certifications'),
   ];
@@ -116,10 +116,10 @@ class SiteConfig {
 
   static const portfolioNavItems = <PortfolioNavItem>[
     PortfolioNavItem(label: 'Summary', sectionId: 'about'),
+    PortfolioNavItem(label: 'Portfolio', sectionId: 'portfolio'),
     PortfolioNavItem(label: 'Highlights', sectionId: 'stats'),
     PortfolioNavItem(label: 'Experience', sectionId: 'experience'),
     PortfolioNavItem(label: 'Skills', sectionId: 'skills'),
-    PortfolioNavItem(label: 'Portfolio', sectionId: 'portfolio'),
     PortfolioNavItem(label: 'UI Challenges', sectionId: 'challenges'),
     PortfolioNavItem(label: 'Certifications', sectionId: 'achievements'),
     PortfolioNavItem(label: 'Testimonials', sectionId: 'testimonials'),
@@ -135,6 +135,8 @@ class SiteConfig {
       detail:
           'Interactive 3D character / product presentation built in Flutter.',
       imageAsset: 'assets/challenges/challenge_3d.gif',
+      videoWebm: 'assets/challenges/challenge_3d.webm',
+      videoMp4: 'assets/challenges/challenge_3d.mp4',
       url: 'https://x.com/daveeilish/status/1891293267586687335?s=46',
     ),
     UiChallenge(
@@ -142,6 +144,8 @@ class SiteConfig {
       detail:
           'Logistics UI motion — live tracking feel, status updates, and polished flows.',
       imageAsset: 'assets/challenges/challenge_muleex.gif',
+      videoWebm: 'assets/challenges/challenge_muleex.webm',
+      videoMp4: 'assets/challenges/challenge_muleex.mp4',
       url: 'https://x.com/daveeilish/status/1891821883017855113?s=46',
     ),
     UiChallenge(
@@ -149,6 +153,8 @@ class SiteConfig {
       detail:
           'UI challenge exploring expressive layout, motion, and brand-forward screens.',
       imageAsset: 'assets/challenges/challenge_mich.gif',
+      videoWebm: 'assets/challenges/challenge_mich.webm',
+      videoMp4: 'assets/challenges/challenge_mich.mp4',
       url: 'https://x.com/daveeilish/status/1891293267586687335?s=46',
     ),
     UiChallenge(
@@ -156,6 +162,8 @@ class SiteConfig {
       detail:
           'Crypto product UI challenge — dense data surfaces with clean interaction.',
       imageAsset: 'assets/challenges/challenge_crypto.gif',
+      videoWebm: 'assets/challenges/challenge_crypto.webm',
+      videoMp4: 'assets/challenges/challenge_crypto.mp4',
       url: 'https://x.com/daveeilish/status/1891293267586687335?s=46',
     ),
   ];
@@ -165,84 +173,92 @@ class SiteConfig {
       title: 'Vulte',
       detail:
           'Digital bank with 1M+ downloads. Implemented Safe Lock (10% interest p.a.) and Target Savings — personalized goals with a \$10 minimum deposit.',
-      imageAsset: 'assets/projects/vulte/00_intro.jpg',
+      imageAsset: 'assets/projects/vulte/00_intro_card.webp',
       images: [
-        'assets/projects/vulte/00_intro.jpg',
-        'assets/projects/vulte/01_home.jpg',
-        'assets/projects/vulte/02_receipt.jpg',
+        'assets/projects/vulte/00_intro_full.webp',
+        'assets/projects/vulte/01_home_full.webp',
+        'assets/projects/vulte/02_receipt_full.webp',
       ],
       heightRatio: 1.15,
       tag: 'Dart · Flutter',
       category: ProjectCategory.production,
       metrics: '1M+ downloads · Safe Lock · Target Savings',
+      url:
+          'https://play.google.com/store/apps/details?id=com.vulte.app&pcampaignid=web_share',
     ),
     PortfolioProject(
       title: 'MuleEx',
       detail:
           'Enterprise transportation and delivery platform. In-app alerts, payment gateways, and WebSockets for live shipment and trip updates between app and backend.',
-      imageAsset: 'assets/projects/muleex/00_intro.jpg',
+      imageAsset: 'assets/projects/muleex/00_intro_card.webp',
       images: [
-        'assets/projects/muleex/00_intro.jpg',
-        'assets/projects/muleex/01_login.jpg',
-        'assets/projects/muleex/02_shipping_platform.jpg',
-        'assets/projects/muleex/03_payment.jpg',
-        'assets/projects/muleex/04_hub.jpg',
-        'assets/projects/muleex/05_signup.jpg',
-        'assets/projects/muleex/06_quote.jpg',
+        'assets/projects/muleex/00_intro_full.webp',
+        'assets/projects/muleex/01_login_full.webp',
+        'assets/projects/muleex/02_shipping_platform_full.webp',
+        'assets/projects/muleex/03_payment_full.webp',
+        'assets/projects/muleex/04_hub_full.webp',
+        'assets/projects/muleex/05_signup_full.webp',
+        'assets/projects/muleex/06_quote_full.webp',
       ],
       heightRatio: 1.15,
       tag: 'Dart · Flutter',
       category: ProjectCategory.production,
       metrics: 'WebSockets · Payments · Live tracking',
+      url:
+          'https://play.google.com/store/apps/details?id=com.muleex.consumer&pcampaignid=web_share',
     ),
     PortfolioProject(
       title: 'MediaFlow',
       detail:
           'Role-based platform for production teams to submit content, review collaboratively, approve for broadcast, and track performance against goals — lifting productivity, transparency, and performance by 89%.',
-      imageAsset: 'assets/projects/mediaflow/00_intro.jpg',
+      imageAsset: 'assets/projects/mediaflow/00_intro_card.webp',
       videoUrl:
           'https://drive.google.com/file/d/1VYF9dvXgn5P4qpEsISOLzVl3MfMHSBBe/preview',
       heightRatio: 0.72,
       tag: 'Python · FastAPI',
       category: ProjectCategory.production,
       metrics: 'Media workflow · 89% productivity',
+      url: 'https://mediaflow.solutions/#/login',
     ),
     PortfolioProject(
       title: 'Rhapsody TV',
       detail:
           'Designed and developed the cross-platform mobile version of Rhapsody TV for Rhapsody of Realities.',
-      imageAsset: 'assets/projects/rhapsody_tv/00_intro.jpg',
+      imageAsset: 'assets/projects/rhapsody_tv/00_intro_card.webp',
       images: [
-        'assets/projects/rhapsody_tv/00_intro.jpg',
-        'assets/projects/rhapsody_tv/01_splash.jpg',
-        'assets/projects/rhapsody_tv/02_discover.jpg',
-        'assets/projects/rhapsody_tv/03_discover_live.jpg',
-        'assets/projects/rhapsody_tv/04_categories.jpg',
-        'assets/projects/rhapsody_tv/05_schedule.jpg',
-        'assets/projects/rhapsody_tv/06_live.jpg',
-        'assets/projects/rhapsody_tv/07_vod.jpg',
-        'assets/projects/rhapsody_tv/08_travels.jpg',
-        'assets/projects/rhapsody_tv/09_profile.jpg',
+        'assets/projects/rhapsody_tv/00_intro_full.webp',
+        'assets/projects/rhapsody_tv/01_splash_full.webp',
+        'assets/projects/rhapsody_tv/02_discover_full.webp',
+        'assets/projects/rhapsody_tv/03_discover_live_full.webp',
+        'assets/projects/rhapsody_tv/04_categories_full.webp',
+        'assets/projects/rhapsody_tv/05_schedule_full.webp',
+        'assets/projects/rhapsody_tv/06_live_full.webp',
+        'assets/projects/rhapsody_tv/07_vod_full.webp',
+        'assets/projects/rhapsody_tv/08_travels_full.webp',
+        'assets/projects/rhapsody_tv/09_profile_full.webp',
       ],
       heightRatio: 1.15,
       tag: 'Flutter · Dart',
       category: ProjectCategory.production,
       metrics: 'Cross-platform · Media',
+      url:
+          'https://play.google.com/store/apps/details?id=app.rhapsody_tv&pcampaignid=web_share',
     ),
     PortfolioProject(
       title: 'Rhapsody Media Network',
       detail:
           'Portal that unifies creatives, designers, video editors, writers, and media professionals into one structured global system focused on excellence, consistency, and impact.',
-      imageAsset: 'assets/projects/rhapsody_media_network/00_intro.jpg',
+      imageAsset: 'assets/projects/rhapsody_media_network/00_intro_card.webp',
       images: [
-        'assets/projects/rhapsody_media_network/00_intro.jpg',
-        'assets/projects/rhapsody_media_network/01_about.jpg',
-        'assets/projects/rhapsody_media_network/02_library.jpg',
+        'assets/projects/rhapsody_media_network/00_intro_full.webp',
+        'assets/projects/rhapsody_media_network/01_about_full.webp',
+        'assets/projects/rhapsody_media_network/02_library_full.webp',
       ],
       heightRatio: 0.72,
       tag: 'Web · Backend',
       category: ProjectCategory.production,
       metrics: 'Creatives portal · Global media',
+      url: 'https://rhapsodymedianetwork.org/',
     ),
   ];
 
@@ -441,11 +457,15 @@ class UiChallenge {
     required this.title,
     required this.detail,
     required this.imageAsset,
+    this.videoWebm,
+    this.videoMp4,
     this.url,
   });
 
   final String title;
   final String detail;
   final String imageAsset;
+  final String? videoWebm;
+  final String? videoMp4;
   final String? url;
 }

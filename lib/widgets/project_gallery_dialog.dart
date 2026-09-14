@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:michael_david/config/site_config.dart';
 import 'package:michael_david/theme/app_colors.dart';
 import 'package:michael_david/theme/app_typography.dart';
-import 'package:michael_david/utils/open_external.dart';
+import 'package:michael_david/widgets/project_link_chip.dart';
 
 Future<void> showProjectGalleryDialog(
   BuildContext context,
@@ -100,13 +100,9 @@ class _ProjectGalleryDialogState extends State<_ProjectGalleryDialog> {
                       child: Row(
                         children: [
                           Expanded(
-                            child: Text(
-                              project.title,
-                              style: AppTypography.body(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                              ),
+                            child: ProjectLinkChip(
+                              title: project.title,
+                              url: project.url,
                             ),
                           ),
                           IconButton(
@@ -216,28 +212,6 @@ class _ProjectGalleryDialogState extends State<_ProjectGalleryDialog> {
                               height: 1.5,
                             ),
                           ),
-                          if (project.url != null) ...[
-                            const SizedBox(height: 14),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: TextButton.icon(
-                                onPressed: () => openExternal(project.url!),
-                                icon: const Icon(
-                                  Icons.open_in_new,
-                                  size: 16,
-                                  color: AppColors.accent,
-                                ),
-                                label: Text(
-                                  'View repo',
-                                  style: AppTypography.body(
-                                    color: AppColors.accent,
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
                         ],
                       ),
                     ),

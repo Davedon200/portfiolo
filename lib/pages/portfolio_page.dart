@@ -31,10 +31,10 @@ class _PortfolioPageState extends State<PortfolioPage>
   static const _entranceDuration = Duration(milliseconds: 900);
   static const _sectionOrder = <String>[
     'about',
+    'portfolio',
     'stats',
     'experience',
     'skills',
-    'portfolio',
     'challenges',
     'achievements',
     'testimonials',
@@ -308,6 +308,32 @@ class _PortfolioContent extends StatelessWidget {
             ),
             SizedBox(height: gap),
             KeyedSubtree(
+              key: sectionKeys['portfolio'],
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const ContentSectionHeader(
+                    title: 'Portfolio',
+                    icon: Icons.grid_view_rounded,
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    SiteConfig.portfolioIntro,
+                    style: AppTypography.body(
+                      color: AppColors.textMutedOnLight,
+                      fontSize: 14,
+                      height: 1.5,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  ProjectGrid(
+                    projects: SiteConfig.portfolioProjects,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: gap),
+            KeyedSubtree(
               key: sectionKeys['stats'],
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -384,32 +410,6 @@ class _PortfolioContent extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   SkillsGrid(groups: SiteConfig.skillGroups),
-                ],
-              ),
-            ),
-            SizedBox(height: gap),
-            KeyedSubtree(
-              key: sectionKeys['portfolio'],
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const ContentSectionHeader(
-                    title: 'Portfolio',
-                    icon: Icons.grid_view_rounded,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    SiteConfig.portfolioIntro,
-                    style: AppTypography.body(
-                      color: AppColors.textMutedOnLight,
-                      fontSize: 14,
-                      height: 1.5,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  ProjectGrid(
-                    projects: SiteConfig.portfolioProjects,
-                  ),
                 ],
               ),
             ),

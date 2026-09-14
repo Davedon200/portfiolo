@@ -1,10 +1,15 @@
 import 'package:flutter/foundation.dart';
 
-/// Resolves asset paths for web (static `/assets/...`) vs bundled Flutter assets.
+/// Resolves asset paths for web (relative to [base href]) vs bundled Flutter assets.
 String resolveAssetPath(String assetPath) {
   assert(assetPath.startsWith('assets/'), 'Expected Flutter asset path');
   if (kIsWeb) {
-    return '/$assetPath';
+    const version = String.fromEnvironment('APP_VERSION');
+    // Production: files live at /{version}/assets/... while the document URL is /.
+    if (version.isNotEmpty) {
+      return '/$version/$assetPath';
+    }
+    return assetPath;
   }
   return assetPath;
 }

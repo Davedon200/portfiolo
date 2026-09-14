@@ -5,6 +5,7 @@ import 'package:michael_david/theme/app_colors.dart';
 import 'package:michael_david/theme/app_typography.dart';
 import 'package:michael_david/utils/asset_paths.dart';
 import 'package:michael_david/utils/open_external.dart';
+import 'package:michael_david/widgets/challenge_video.dart';
 
 class ChallengeGrid extends StatelessWidget {
   const ChallengeGrid({super.key, required this.challenges, required this.wide});
@@ -185,7 +186,7 @@ class _ChallengeCardState extends State<_ChallengeCard> {
                   child: SizedBox(
                     height: widget.mediaHeight,
                     width: double.infinity,
-                    child: _ChallengeImage(assetPath: challenge.imageAsset),
+                    child: _ChallengeImage(challenge: challenge),
                   ),
                 ),
                 Padding(
@@ -257,9 +258,9 @@ class _ChallengeCardState extends State<_ChallengeCard> {
 }
 
 class _ChallengeImage extends StatelessWidget {
-  const _ChallengeImage({required this.assetPath});
+  const _ChallengeImage({required this.challenge});
 
-  final String assetPath;
+  final UiChallenge challenge;
 
   @override
   Widget build(BuildContext context) {
@@ -269,9 +270,18 @@ class _ChallengeImage extends StatelessWidget {
       child: const Icon(Icons.animation, color: AppColors.primary),
     );
 
+    final webm = challenge.videoWebm;
+    final mp4 = challenge.videoMp4;
+    if (kIsWeb && webm != null && mp4 != null) {
+      return challengeVideo(
+        resolveAssetPath(webm),
+        resolveAssetPath(mp4),
+      );
+    }
+
     if (kIsWeb) {
       return Image.network(
-        resolveAssetPath(assetPath),
+        resolveAssetPath(challenge.imageAsset),
         fit: BoxFit.cover,
         gaplessPlayback: true,
         filterQuality: FilterQuality.medium,
@@ -292,7 +302,7 @@ class _ChallengeImage extends StatelessWidget {
     }
 
     return Image.asset(
-      assetPath,
+      challenge.imageAsset,
       fit: BoxFit.cover,
       gaplessPlayback: true,
       filterQuality: FilterQuality.medium,

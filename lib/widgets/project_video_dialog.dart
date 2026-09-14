@@ -4,6 +4,7 @@ import 'package:michael_david/config/site_config.dart';
 import 'package:michael_david/theme/app_colors.dart';
 import 'package:michael_david/theme/app_typography.dart';
 import 'package:michael_david/widgets/drive_iframe.dart';
+import 'package:michael_david/widgets/project_link_chip.dart';
 
 Future<void> showProjectVideoDialog(
   BuildContext context,
@@ -68,13 +69,9 @@ class _ProjectVideoDialog extends StatelessWidget {
                       child: Row(
                         children: [
                           Expanded(
-                            child: Text(
-                              project.title,
-                              style: AppTypography.body(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                              ),
+                            child: ProjectLinkChip(
+                              title: project.title,
+                              url: project.url,
                             ),
                           ),
                           IconButton(

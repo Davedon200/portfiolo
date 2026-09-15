@@ -27,38 +27,15 @@ jobs:
       - name: Build Michael Web App
         run: |
           flutter build web --release --tree-shake-icons --web-resources-cdn \
-            --base-href / \
-            --dart-define=APP_VERSION=${{ steps.version.outputs.release }}
+            --base-href /${{ steps.version.outputs.release }}/
 
       - name: Move build artifacts
-        env:
-          VERSION: ${{ steps.version.outputs.release }}
         run: |
+          VERSION=${{ steps.version.outputs.release }}
           mkdir -p build/web_output/$VERSION
           mv build/web/* build/web_output/$VERSION/
           mv build/web_output/$VERSION/index.html build/web_output/index.html
           echo "{\"version\": \"$VERSION\"}" > build/web_output/version.json
-          python3 - <<'PY'
-          from pathlib import Path
-          import os
-
-          version = os.environ["VERSION"]
-          path = Path("build/web_output/index.html")
-          html = path.read_text()
-          replacements = {
-              'src="flutter_bootstrap.js"': f'src="/{version}/flutter_bootstrap.js"',
-              'href="assets/assets/images/portrait_cutout.webp"': f'href="/{version}/assets/assets/images/portrait_cutout.webp"',
-              'content="icons/Icon-512.png"': f'content="/{version}/icons/Icon-512.png"',
-              'href="icons/apple-touch-icon.png"': f'href="/{version}/icons/apple-touch-icon.png"',
-              'href="favicon.png"': f'href="/{version}/favicon.png"',
-              'href="manifest.json"': f'href="/{version}/manifest.json"',
-          }
-          for old, new in replacements.items():
-              if old not in html:
-                  raise SystemExit(f"Expected {old!r} in index.html")
-              html = html.replace(old, new)
-          path.write_text(html)
-          PY
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4

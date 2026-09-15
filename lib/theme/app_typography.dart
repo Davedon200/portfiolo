@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 /// Shared typography — Syne for display, Manrope for body (matches home page).
+/// Uses families declared in pubspec.yaml.
 abstract class AppTypography {
   static TextStyle display({
     required double fontSize,
@@ -10,7 +10,8 @@ abstract class AppTypography {
     double letterSpacing = -0.5,
     double? height,
   }) {
-    return GoogleFonts.syne(
+    return TextStyle(
+      fontFamily: 'Syne',
       fontSize: fontSize,
       fontWeight: fontWeight,
       letterSpacing: letterSpacing,
@@ -25,7 +26,8 @@ abstract class AppTypography {
     FontWeight fontWeight = FontWeight.w400,
     double height = 1.55,
   }) {
-    return GoogleFonts.manrope(
+    return TextStyle(
+      fontFamily: 'Manrope',
       fontSize: fontSize,
       fontWeight: fontWeight,
       height: height,
@@ -38,7 +40,8 @@ abstract class AppTypography {
     double fontSize = 15,
     FontWeight fontWeight = FontWeight.w500,
   }) {
-    return GoogleFonts.syne(
+    return TextStyle(
+      fontFamily: 'Syne',
       fontSize: fontSize,
       fontWeight: fontWeight,
       color: color,
@@ -52,7 +55,8 @@ abstract class AppTypography {
     FontWeight fontWeight = FontWeight.w600,
     double letterSpacing = 3.2,
   }) {
-    return GoogleFonts.jetBrainsMono(
+    return TextStyle(
+      fontFamily: 'JetBrains Mono',
       fontSize: fontSize,
       fontWeight: fontWeight,
       letterSpacing: letterSpacing,
@@ -67,7 +71,8 @@ abstract class AppTypography {
     double letterSpacing = -2,
     double height = 0.9,
   }) {
-    return GoogleFonts.inter(
+    return TextStyle(
+      fontFamily: 'Inter',
       fontSize: fontSize,
       fontWeight: fontWeight,
       letterSpacing: letterSpacing,
@@ -83,7 +88,8 @@ abstract class AppTypography {
     FontWeight fontWeight = FontWeight.w400,
     double height = 1.65,
   }) {
-    return GoogleFonts.inter(
+    return TextStyle(
+      fontFamily: 'Inter',
       fontSize: fontSize,
       fontWeight: fontWeight,
       height: height,

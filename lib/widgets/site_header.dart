@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:michael_david/config/site_config.dart';
 import 'package:michael_david/theme/app_colors.dart';
+import 'package:michael_david/theme/app_typography.dart';
 import 'package:michael_david/widgets/brand_logo.dart';
 
 class SiteHeader extends StatelessWidget {
@@ -35,7 +35,7 @@ class SiteHeader extends StatelessWidget {
                   const SizedBox(width: 10),
                   Text(
                     SiteConfig.name,
-                    style: GoogleFonts.syne(
+                    style: AppTypography.nav(
                       fontWeight: FontWeight.w700,
                       fontSize: 16,
                       color: Colors.white,

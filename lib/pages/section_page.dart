@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:michael_david/config/site_config.dart';
 import 'package:michael_david/theme/app_colors.dart';
+import 'package:michael_david/theme/app_typography.dart';
 import 'package:michael_david/utils/open_external.dart';
 import 'package:michael_david/widgets/brand_logo.dart';
 import 'package:michael_david/widgets/site_header.dart';
@@ -46,20 +46,18 @@ class SectionPage extends StatelessWidget {
                   children: [
                     Text(
                       section.eyebrow,
-                      style: GoogleFonts.manrope(
+                      style: AppTypography.body(
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
-                        letterSpacing: 2.2,
                         color: AppColors.accent,
-                      ),
+                      ).copyWith(letterSpacing: 2.2),
                     ),
                     const SizedBox(height: 10),
                     Text(
                       section.title,
-                      style: GoogleFonts.syne(
+                      style: AppTypography.display(
                         fontSize: wide ? 42 : 32,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: -0.5,
+                        color: Colors.white,
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -77,9 +75,11 @@ class SectionPage extends StatelessWidget {
                     const SizedBox(height: 40),
                     Text(
                       'Achievements',
-                      style: GoogleFonts.syne(
+                      style: AppTypography.display(
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                        letterSpacing: 0,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -95,12 +95,11 @@ class SectionPage extends StatelessWidget {
                               width: 56,
                               child: Text(
                                 a.year,
-                                style: GoogleFonts.manrope(
+                                style: AppTypography.body(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w700,
-                                  letterSpacing: 1,
                                   color: AppColors.accent,
-                                ),
+                                ).copyWith(letterSpacing: 1),
                               ),
                             ),
                             Expanded(
@@ -132,9 +131,11 @@ class SectionPage extends StatelessWidget {
                     const SizedBox(height: 28),
                     Text(
                       'Projects',
-                      style: GoogleFonts.syne(
+                      style: AppTypography.display(
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                        letterSpacing: 0,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -153,9 +154,11 @@ class SectionPage extends StatelessWidget {
                                   children: [
                                     Text(
                                       p.title,
-                                      style: GoogleFonts.syne(
+                                      style: AppTypography.display(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w600,
+                                        color: Colors.white,
+                                        letterSpacing: 0,
                                       ),
                                     ),
                                     const SizedBox(height: 4),
@@ -172,12 +175,11 @@ class SectionPage extends StatelessWidget {
                               const SizedBox(width: 16),
                               Text(
                                 p.tag.toUpperCase(),
-                                style: GoogleFonts.manrope(
+                                style: AppTypography.body(
                                   fontSize: 11,
                                   fontWeight: FontWeight.w700,
-                                  letterSpacing: 1,
                                   color: AppColors.whiteMuted,
-                                ),
+                                ).copyWith(letterSpacing: 1),
                               ),
                             ],
                           ),

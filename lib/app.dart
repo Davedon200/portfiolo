@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:michael_david/router/app_router.dart';
 import 'package:michael_david/theme/app_colors.dart';
 
@@ -12,6 +11,7 @@ class MichaelDavidApp extends StatelessWidget {
       useMaterial3: true,
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.primary,
+      fontFamily: 'Manrope',
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors.primary,
         brightness: Brightness.dark,
@@ -24,7 +24,7 @@ class MichaelDavidApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
       theme: base.copyWith(
-        textTheme: GoogleFonts.manropeTextTheme(base.textTheme).apply(
+        textTheme: base.textTheme.apply(
           bodyColor: Colors.white,
           displayColor: Colors.white,
         ),
